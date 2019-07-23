@@ -8,6 +8,11 @@
 
 <body>
     <style>
+        html, body{
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
         body {
             text-align: center;
             background: #3693ff;
@@ -38,6 +43,17 @@
         .hidden {
             display: none;
         }
+        #footer{
+            position: absolute;
+            margin: 0 auto;
+            bottom: 0;
+            display: block;
+            width: 100%;
+            padding-bottom: 10px;
+        }
+        #footer a{
+            font-size: 16px;
+        }
 
     </style>
     <input type="number" min="0" id="hours" value="0">
@@ -50,6 +66,8 @@
     <br>
     <label for="timeLeft">Time left:</label>
     <input type="text" id="timeLeft" disabled>
+    
+    <div id="footer"><a href="https://github.com/Frankusky/pokego_coinscalculator/issues">Click here to suggest a feature or report a bug</a></div>
     <script>
         var coinsCalculate = function() {
             var hoursInput = document.getElementById("hours").value ? parseInt(document.getElementById("hours").value) : 0;
@@ -65,7 +83,6 @@
             elem.addEventListener("change", coinsCalculate)
             elem.addEventListener("keyup", coinsCalculate)
         })
-
     </script>
 </body>
 
