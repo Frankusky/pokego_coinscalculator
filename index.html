@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Pokemon Go - Coins calculator</title>
 </head>
 
 <body>
     <style>
         body {
             text-align: center;
-            background: #0076ff;
+            background: #3693ff;
             padding-top: 10%;
         }
 
@@ -18,33 +18,49 @@
             font-size: 32px;
         }
 
+        input[type=number] {
+            background: none;
+            border: none;
+            text-align: right;
+            max-width: 100px;
+        }
+
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button {
             opacity: 1;
+            margin-left: 10px;
         }
 
         #result {
             margin-top: 20px;
         }
 
+        .hidden {
+            display: none;
+        }
+
     </style>
-    <label for="hours">Hours</label>
     <input type="number" min="0" id="hours" value="0">
+    <label for="hours">Hours</label>
+    <input type="number" min="0" id="minutes" value="0" max="60">
     <label for="minutes">Minutes</label>
-    <input type="number" min="0" id="minutes" value="0">
     <br>
     <label for="result">Total Coins:</label>
     <input type="text" id="result" disabled>
+    <br>
+    <label for="timeLeft">Time left:</label>
+    <input type="text" id="timeLeft" disabled>
     <script>
         var coinsCalculate = function() {
-            var hoursInput = document.getElementById("hours").value;
-            var minutesInput = document.getElementById("minutes").value;
-
-            var totalCoins = (parseInt(hoursInput) * 6) + Math.floor(parseInt(minutesInput) / 10);
-            document.getElementById("result").value = totalCoins;
+            var hoursInput = document.getElementById("hours").value ? parseInt(document.getElementById("hours").value) : 0;
+            var minutesInput = document.getElementById("minutes").value ? parseInt(document.getElementById("minutes").value) : 0;
+            var totalCoins = (hoursInput * 6) + Math.floor(minutesInput / 10);
+            document.getElementById("result").value = totalCoins > 50 ? 50 : totalCoins;
+            var timeLeftInMinutes = 500 - ((hoursInput * 60) + minutesInput);
+            var totalHoursLeft = Math.floor(timeLeftInMinutes / 60);
+            var totalMinutesLeft = timeLeftInMinutes - (totalHoursLeft * 60);
+            document.getElementById("timeLeft").value = `${totalHoursLeft} Hours ${totalMinutesLeft} Minutes`;
         }
-
-
         document.querySelectorAll("#hours, #minutes").forEach(function(elem) {
             elem.addEventListener("change", coinsCalculate)
             elem.addEventListener("keyup", coinsCalculate)
